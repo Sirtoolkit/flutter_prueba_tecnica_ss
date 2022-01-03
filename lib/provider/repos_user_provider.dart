@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_prueba_tecnica_ss/screens/details_screen.dart';
+import 'package:flutter_prueba_tecnica_ss/utils/navigation_services.dart';
 
 import '/models/repos_user_model.dart';
 import '/services/repos_user_services.dart';
@@ -41,5 +43,9 @@ class ReposUserProvider with ChangeNotifier {
         notifyListeners();
       }
     });
+  }
+
+  navigateToReposUser(Map mapRepo) {
+    locator<NavigationServices>().navigateTo(DetailsScreen.routeName, mapRepo);
   }
 }

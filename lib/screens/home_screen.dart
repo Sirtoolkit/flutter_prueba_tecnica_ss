@@ -6,8 +6,10 @@ import '/provider/repos_user_provider.dart';
 import '/widgets/loading_widget.dart';
 import '/widgets/card_widget.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  static const routeName = '/home';
+
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class HomePage extends StatelessWidget {
                           return CardWidget(
                             image: reposUser.owner!.avatarUrl,
                             title: reposUser.name,
+                            owner: reposUser.owner!.login,
                             description:
                                 reposUser.private! ? 'Private' : 'Public',
                           );
