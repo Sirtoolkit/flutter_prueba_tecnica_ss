@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_prueba_tecnica_ss/screens/details_screen.dart';
 import 'package:provider/provider.dart';
 
+import '/utils/navigation_services.dart';
 import '/config/get_it_config.dart';
 import '/provider/repos_user_provider.dart';
-import '/screens/home_page.dart';
+import '/screens/home_screen.dart';
 import '/themes/themes.dart';
 
 void main() {
@@ -23,10 +25,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ReposUserProvider()),
       ],
       child: MaterialApp(
+        navigatorKey: locator<NavigationServices>().navigatorKey,
         title: 'Github Repos',
         debugShowCheckedModeBanner: false,
-        theme: LightTheme.theme,
-        home: const HomePage(),
+        theme: DarkTheme.theme,
+        initialRoute: HomeScreen.routeName,
+        routes: {
+          HomeScreen.routeName: (context) => const HomeScreen(),
+          DetailsScreen.routeName: (context) => const DetailsScreen(),
+        },
       ),
     );
   }

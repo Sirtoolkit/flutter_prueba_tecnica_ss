@@ -6,8 +6,10 @@ import '/provider/repos_user_provider.dart';
 import '/widgets/loading_widget.dart';
 import '/widgets/card_widget.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  static const routeName = '/home';
+
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +18,23 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Github Repos'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.brightness_3),
+            onPressed: () {
+
+            },
+          ),
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: reposUserProvider.searchController,
               decoration: const InputDecoration(
+                border: OutlineInputBorder(),
                 labelText: 'Github Username',
               ),
             ),
@@ -37,6 +48,7 @@ class HomePage extends StatelessWidget {
                           return CardWidget(
                             image: reposUser.owner!.avatarUrl,
                             title: reposUser.name,
+                            owner: reposUser.owner!.login,
                             description:
                                 reposUser.private! ? 'Private' : 'Public',
                           );
@@ -45,11 +57,11 @@ class HomePage extends StatelessWidget {
                     )
                   : const Expanded(child: LoadingWidget())
             else
-              const Expanded(
+               Expanded(
                 child: Center(
                   child: Text(
-                    'Enter Github Username',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    '¡Enter Github Username!',
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ),

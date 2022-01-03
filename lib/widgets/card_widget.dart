@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '/provider/repos_user_provider.dart';
 
 class CardWidget extends StatelessWidget {
   final String? image;
   final String? title;
+  final String? owner;
   final String? description;
 
-  const CardWidget({Key? key, this.title, this.description, this.image})
+  const CardWidget(
+      {Key? key, this.title, this.description, this.image, this.owner})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final reposUserProvider = context.watch<ReposUserProvider>();
+
     final size = MediaQuery.of(context).size;
     final sizeWith = size.width * 0.16;
 
@@ -29,8 +36,11 @@ class CardWidget extends StatelessWidget {
               height: sizeWith,
             ),
           ),
-          title: Text(title!,style: const TextStyle(fontWeight: FontWeight.bold)),
+          title:
+              Text(title!, style: const TextStyle(fontWeight: FontWeight.bold)),
           subtitle: Text(description!),
+          onTap: () => reposUserProvider
+              .navigateToReposUser({'owner': owner, 'repository': title}),
         ),
       ),
     );
