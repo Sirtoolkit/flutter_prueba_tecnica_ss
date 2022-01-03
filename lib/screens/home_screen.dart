@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_prueba_tecnica_ss/provider/dark_mode_provider.dart';
 
 import 'package:provider/provider.dart';
 
@@ -14,6 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final reposUserProvider = context.watch<ReposUserProvider>();
+    final darkModeProvider = context.watch<DarkModeProvider>();
 
     return Scaffold(
       appBar: AppBar(
@@ -21,9 +23,8 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.brightness_3),
-            onPressed: () {
-
-            },
+            onPressed: () =>
+                darkModeProvider.darkMode = !darkModeProvider.darkMode,
           ),
         ],
       ),
@@ -57,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                     )
                   : const Expanded(child: LoadingWidget())
             else
-               Expanded(
+              Expanded(
                 child: Center(
                   child: Text(
                     '¡Enter Github Username!',

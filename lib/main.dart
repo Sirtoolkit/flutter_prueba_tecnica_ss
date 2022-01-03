@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_prueba_tecnica_ss/provider/dark_mode_provider.dart';
 import 'package:flutter_prueba_tecnica_ss/screens/details_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -22,18 +23,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => DarkModeProvider()),
         ChangeNotifierProvider(create: (_) => ReposUserProvider()),
       ],
-      child: MaterialApp(
-        navigatorKey: locator<NavigationServices>().navigatorKey,
-        title: 'Github Repos',
-        debugShowCheckedModeBanner: false,
-        theme: DarkTheme.theme,
-        initialRoute: HomeScreen.routeName,
-        routes: {
-          HomeScreen.routeName: (context) => const HomeScreen(),
-          DetailsScreen.routeName: (context) => const DetailsScreen(),
-        },
+      child: Consumer<DarkModeProvider>(
+        builder: (context, value, child) => (MaterialApp(
+          navigatorKey: locator<NavigationServices>().navigatorKey,
+          title: 'Github Repos',
+          theme: value.darkMode ? DarkTheme.theme : LightTheme.theme,
+          debugShowCheckedModeBanner: false,
+          initialRoute: HomeScreen.routeName,
+          routes: {
+            HomeScreen.routeName: (context) => const HomeScreen(),
+            DetailsScreen.routeName: (context) => const DetailsScreen(),
+          },
+        )),
       ),
     );
   }
