@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
+import '/config/get_it_config.dart';
+import '/provider/repos_user_provider.dart';
 import '/screens/home_page.dart';
 import '/themes/themes.dart';
 
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  setupLocator();
   runApp(const MyApp());
 }
 
@@ -14,11 +18,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Github Repos',
-      debugShowCheckedModeBanner: false,
-      theme: LightTheme.theme,
-      home: const HomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ReposUserProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Github Repos',
+        debugShowCheckedModeBanner: false,
+        theme: LightTheme.theme,
+        home: const HomePage(),
+      ),
     );
   }
 }
