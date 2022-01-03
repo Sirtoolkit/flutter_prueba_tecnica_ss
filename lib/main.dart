@@ -8,8 +8,8 @@ import '/screens/home_page.dart';
 import '/themes/themes.dart';
 
 void main() {
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   setupLocator();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 

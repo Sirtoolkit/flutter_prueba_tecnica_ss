@@ -1,1 +1,1 @@
-const apiURL = 'https://api.github.com';
+const apiURL = 'api.github.com';
