@@ -46,7 +46,13 @@ class HomePage extends StatelessWidget {
                   : const Expanded(child: LoadingWidget())
             else
               const Expanded(
-                  child: Center(child: Text('Enter Github Username'))),
+                child: Center(
+                  child: Text(
+                    'Enter Github Username',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
