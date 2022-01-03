@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_prueba_tecnica_ss/screens/home_page.dart';
+
+import '/screens/home_page.dart';
+import '/themes/themes.dart';
 
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -15,15 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Github Repos',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
-        primaryColor: const Color(0xFF2B3137),
-        backgroundColor: const Color(0xFF2B3137),
-        appBarTheme: const AppBarTheme(
-          color: Color(0xFF2B3137),
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
-      ),
+      theme: LightTheme.theme,
       home: const HomePage(),
     );
   }
