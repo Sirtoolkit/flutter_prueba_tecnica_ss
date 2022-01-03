@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: locator<NavigationServices>().navigatorKey,
         title: 'Github Repos',
         debugShowCheckedModeBanner: false,
-        theme: LightTheme.theme,
+        theme: DarkTheme.theme,
         initialRoute: HomeScreen.routeName,
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),

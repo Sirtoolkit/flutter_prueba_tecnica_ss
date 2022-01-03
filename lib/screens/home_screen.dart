@@ -18,14 +18,23 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Github Repos'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.brightness_3),
+            onPressed: () {
+
+            },
+          ),
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: reposUserProvider.searchController,
               decoration: const InputDecoration(
+                border: OutlineInputBorder(),
                 labelText: 'Github Username',
               ),
             ),
@@ -48,11 +57,11 @@ class HomeScreen extends StatelessWidget {
                     )
                   : const Expanded(child: LoadingWidget())
             else
-              const Expanded(
+               Expanded(
                 child: Center(
                   child: Text(
-                    'Enter Github Username',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    '¡Enter Github Username!',
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ),
