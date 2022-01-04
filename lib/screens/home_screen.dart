@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_prueba_tecnica_ss/provider/dark_mode_provider.dart';
 
 import 'package:provider/provider.dart';
 
 import '/provider/repos_user_provider.dart';
 import '/widgets/loading_widget.dart';
 import '/widgets/card_widget.dart';
+import '/provider/dark_mode_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -34,6 +34,11 @@ class HomeScreen extends StatelessWidget {
           children: [
             TextField(
               controller: reposUserProvider.searchController,
+              style: TextStyle(
+                color: darkModeProvider.darkMode
+                    ? const Color(0xFFfafdf6)
+                    : const Color(0xFF2B3137),
+              ),
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Github Username',
@@ -42,18 +47,33 @@ class HomeScreen extends StatelessWidget {
             if (reposUserProvider.searchController.text.isNotEmpty)
               reposUserProvider.reposUser.isNotEmpty
                   ? Expanded(
-                      child: ListView.builder(
-                        itemCount: reposUserProvider.reposUser.length,
-                        itemBuilder: (context, index) {
-                          final reposUser = reposUserProvider.reposUser[index];
-                          return CardWidget(
-                            image: reposUser.owner!.avatarUrl,
-                            title: reposUser.name,
-                            owner: reposUser.owner!.login,
-                            description:
-                                reposUser.private! ? 'Private' : 'Public',
-                          );
-                        },
+                      child: Stack(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                              controller: reposUserProvider.scrollController,
+                              itemCount: reposUserProvider.reposUser.length,
+                              itemBuilder: (context, index) {
+                                final reposUser =
+                                    reposUserProvider.reposUser[index];
+                                return CardWidget(
+                                  image: reposUser.owner!.avatarUrl,
+                                  title: reposUser.name,
+                                  owner: reposUser.owner!.login,
+                                  description:
+                                      reposUser.private! ? 'Private' : 'Public',
+                                );
+                              },
+                            ),
+                          ),
+                          reposUserProvider.isLoadingScroll
+                              ? const Positioned(
+                                  bottom: 8,
+                                  left: 0,
+                                  right: 0,
+                                  child: LoadingWidget())
+                              : Container(),
+                        ],
                       ),
                     )
                   : const Expanded(child: LoadingWidget())

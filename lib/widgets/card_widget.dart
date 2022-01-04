@@ -23,7 +23,7 @@ class CardWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Card(
-        elevation: 5,
+        elevation: 4,
         child: ListTile(
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(8),
@@ -36,9 +36,9 @@ class CardWidget extends StatelessWidget {
               height: sizeWith,
             ),
           ),
-          title:
-              Text(title!, style: const TextStyle(fontWeight: FontWeight.bold)),
-          subtitle: Text(description!),
+          title: Text(title!, style: Theme.of(context).textTheme.bodyText1),
+          subtitle:
+              Text(description!, style: Theme.of(context).textTheme.bodyText2),
           onTap: () => reposUserProvider
               .navigateToReposUser({'owner': owner, 'repository': title}),
         ),
