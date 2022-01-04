@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_prueba_tecnica_ss/provider/repos_user_provider.dart';
-import 'package:flutter_prueba_tecnica_ss/widgets/loading_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '/provider/repos_user_provider.dart';
+import '/widgets/loading_widget.dart';
 
 class DetailsScreen extends StatelessWidget {
   static const routeName = '/details';
@@ -12,25 +14,29 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mapRepo = ModalRoute.of(context)?.settings.arguments as Map;
     final reposUserProvider = context.watch<ReposUserProvider>();
+    final textTheme = Theme.of(context).textTheme;
 
     reposUserProvider.getRepository(mapRepo['owner'], mapRepo['repository']);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(mapRepo['repository']),
-        ),
-        body: reposUserProvider.isLoading
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Flexible(
+      appBar: AppBar(
+        title: Text(mapRepo['repository']),
+      ),
+      body: reposUserProvider.isLoading
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: ClipRRect(
+                          clipBehavior: Clip.hardEdge,
+                          borderRadius: BorderRadius.circular(8.0),
                           child: FadeInImage(
                             placeholder:
                                 const AssetImage('assets/img/loading.gif'),
@@ -38,85 +44,77 @@ class DetailsScreen extends StatelessWidget {
                                 .repositoryModel.owner!.avatarUrl!),
                           ),
                         ),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                reposUserProvider.repositoryModel.owner!.login!,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 32),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                reposUserProvider.repositoryModel.owner!.type!,
-                                style: const TextStyle(color: Colors.blueGrey),
-                              ),
-                              const SizedBox(height: 16),
-                              const Text(
-                                'Ir a la página de GitHub',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
+                      ),
+                      const SizedBox(width: 8.0),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              reposUserProvider.repositoryModel.owner!.login!,
+                              style:
+                                  textTheme.bodyText1!.copyWith(fontSize: 32.0),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              reposUserProvider.repositoryModel.owner!.type!,
+                              style: textTheme.bodyText2!
+                                  .copyWith(color: Colors.blueGrey),
+                            ),
+                            const SizedBox(height: 16),
+                            Text('Ir a la página de GitHub',
+                                style: textTheme.bodyText1),
+                            const SizedBox(height: 4),
+                            GestureDetector(
+                              onTap: () async {
+                                if (!await launch(reposUserProvider.repositoryModel.url!)) throw 'Could not launch ${reposUserProvider.repositoryModel.url}';  },
+                              child: Text(
                                 reposUserProvider.repositoryModel.owner!.url!,
-                                style: const TextStyle(color: Colors.blue),
+                                style: textTheme.bodyText1!
+                                    .copyWith(color: Colors.blue),
                               ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    const Text(
-                      'Repositorio',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(reposUserProvider.repositoryModel.name!),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Descripción',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(reposUserProvider.repositoryModel.description == null
-                        ? 'Sin descripción'
-                        : reposUserProvider.repositoryModel.description!),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Lenguaje',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(reposUserProvider.repositoryModel.language!),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Creado',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(reposUserProvider.repositoryModel.createdAt!),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Actualizado',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(reposUserProvider.repositoryModel.updatedAt!),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Público',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(reposUserProvider.repositoryModel.private!
-                        ? 'No'
-                        : 'Sí'),
-                  ],
-                ),
-              )
-            : const LoadingWidget());
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Text('Repositorio', style: textTheme.bodyText1),
+                  const SizedBox(height: 4),
+                  Text(reposUserProvider.repositoryModel.name!,
+                      style: textTheme.bodyText2),
+                  const SizedBox(height: 16),
+                  Text('Descripción', style: textTheme.bodyText1),
+                  const SizedBox(height: 4),
+                  Text(
+                      reposUserProvider.repositoryModel.description == null
+                          ? 'Sin descripción'
+                          : reposUserProvider.repositoryModel.description!,
+                      style: textTheme.bodyText2),
+                  const SizedBox(height: 16),
+                  Text('Lenguaje', style: textTheme.bodyText1),
+                  const SizedBox(height: 4),
+                  Text(reposUserProvider.repositoryModel.language!,
+                      style: textTheme.bodyText2),
+                  const SizedBox(height: 16),
+                  Text('Creado', style: textTheme.bodyText1),
+                  const SizedBox(height: 4),
+                  Text(reposUserProvider.repositoryModel.createdAt!,
+                      style: textTheme.bodyText2),
+                  const SizedBox(height: 16),
+                  Text('Actualizado', style: textTheme.bodyText1),
+                  const SizedBox(height: 4),
+                  Text(reposUserProvider.repositoryModel.updatedAt!,
+                      style: textTheme.bodyText2),
+                  const SizedBox(height: 16),
+                  Text('Público', style: textTheme.bodyText1),
+                  const SizedBox(height: 4),
+                  Text(reposUserProvider.repositoryModel.private! ? 'No' : 'Sí',
+                      style: textTheme.bodyText2),
+                ],
+              ),
+            )
+          : const LoadingWidget(),
+    );
   }
 }

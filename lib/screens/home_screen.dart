@@ -34,6 +34,11 @@ class HomeScreen extends StatelessWidget {
           children: [
             TextField(
               controller: reposUserProvider.searchController,
+              style: TextStyle(
+                color: darkModeProvider.darkMode
+                    ? const Color(0xFFfafdf6)
+                    : const Color(0xFF2B3137),
+              ),
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Github Username',

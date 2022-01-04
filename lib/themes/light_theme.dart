@@ -34,6 +34,10 @@ class LightTheme {
         fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
+      bodyText2: TextStyle(
+        color: Color(0xFF2B3137),
+        fontSize: 16,
+      ),
     ),
   );
 }

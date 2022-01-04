@@ -35,11 +35,19 @@ class DarkTheme {
       color: Color(0xFF2B3137),
       elevation: 0,
     ),
+    cardTheme: const CardTheme(
+      color: Color(0xFF2B3130),
+      elevation: 0,
+    ),
     textTheme: const TextTheme(
       bodyText1: TextStyle(
         color: Color(0xFFfafdf6),
         fontSize: 16,
         fontWeight: FontWeight.bold,
+      ),
+      bodyText2: TextStyle(
+        color: Color(0xFFfafdf6),
+        fontSize: 16,
       ),
     ),
   );
