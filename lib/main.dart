@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_prueba_tecnica_ss/provider/dark_mode_provider.dart';
-import 'package:flutter_prueba_tecnica_ss/screens/details_screen.dart';
 import 'package:provider/provider.dart';
 
+import '/provider/dark_mode_provider.dart';
+import '/screens/details_screen.dart';
 import '/utils/navigation_services.dart';
 import '/config/get_it_config.dart';
 import '/provider/repos_user_provider.dart';

@@ -1,16 +1,17 @@
 # flutter_prueba_tecnica_ss
 
-A new Flutter project.
+Este proyecto es un buscador de repositorios con la api de github.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Algunos recursos para empezar a utilizar la aplicación:
 
-A few resources to get you started if this is your first Flutter project:
+* Cambiar el token que se encuentra en la carpeta Constants.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Usage
+ * La app tiene como funcionalidad buscar repositorios de github.
+ * La app tiene como funcionalidad buscar repositorios de github por nombre.
+ * La app tiene una funcionalidad para ver los detalles de un repositorio.
+ * La app tiene una funcionalidad para poder llevarlo a una pagina web de un repositorio.
+ * La app cuenta con un modo claro y sencillo de usar.
+ * Puede manipular el tema de la aplicación con un modo oscuro o claro.

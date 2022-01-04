@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_prueba_tecnica_ss/provider/dark_mode_provider.dart';
 
 import 'package:provider/provider.dart';
 
 import '/provider/repos_user_provider.dart';
 import '/widgets/loading_widget.dart';
 import '/widgets/card_widget.dart';
+import '/provider/dark_mode_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
