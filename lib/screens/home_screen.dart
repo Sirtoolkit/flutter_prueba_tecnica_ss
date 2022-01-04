@@ -47,18 +47,33 @@ class HomeScreen extends StatelessWidget {
             if (reposUserProvider.searchController.text.isNotEmpty)
               reposUserProvider.reposUser.isNotEmpty
                   ? Expanded(
-                      child: ListView.builder(
-                        itemCount: reposUserProvider.reposUser.length,
-                        itemBuilder: (context, index) {
-                          final reposUser = reposUserProvider.reposUser[index];
-                          return CardWidget(
-                            image: reposUser.owner!.avatarUrl,
-                            title: reposUser.name,
-                            owner: reposUser.owner!.login,
-                            description:
-                                reposUser.private! ? 'Private' : 'Public',
-                          );
-                        },
+                      child: Stack(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                              controller: reposUserProvider.scrollController,
+                              itemCount: reposUserProvider.reposUser.length,
+                              itemBuilder: (context, index) {
+                                final reposUser =
+                                    reposUserProvider.reposUser[index];
+                                return CardWidget(
+                                  image: reposUser.owner!.avatarUrl,
+                                  title: reposUser.name,
+                                  owner: reposUser.owner!.login,
+                                  description:
+                                      reposUser.private! ? 'Private' : 'Public',
+                                );
+                              },
+                            ),
+                          ),
+                          reposUserProvider.isLoadingScroll
+                              ? const Positioned(
+                                  bottom: 8,
+                                  left: 0,
+                                  right: 0,
+                                  child: LoadingWidget())
+                              : Container(),
+                        ],
                       ),
                     )
                   : const Expanded(child: LoadingWidget())
